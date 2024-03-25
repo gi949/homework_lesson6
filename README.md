@@ -46,6 +46,8 @@ ansible-playbook --syntax-check main.yaml
 
 Запускаем playbook на выполнение
 
+ansible-playbook main.yaml
+
 Проверяем состояния кластера patroni, подключаемся к БД через ВМ hp1 и создаем тестовую базу данных:
 
 ![patroni-1](https://github.com/gi949/homework_lesson6/assets/94520051/939f5223-550b-4ad5-b1df-07ea43cfbb76)
@@ -54,11 +56,17 @@ ansible-playbook --syntax-check main.yaml
 
 ![patroni-2](https://github.com/gi949/homework_lesson6/assets/94520051/5ba90781-89c9-43f3-85e7-75cb6e1f4f15)
 
+Подключаемся к одной из реплик и проверяем наличие записи в таблице:
+
+![patroni-4](https://github.com/gi949/homework_lesson6/assets/94520051/5189a736-bd96-423b-b97d-538764ce6782)
+
+Для проверки работоспособности кластера останавливаем ВМ db2, проверяем состояние кластера. Видим, что лидер сменился:
+
+![patroni-5](https://github.com/gi949/homework_lesson6/assets/94520051/927387de-da83-4899-bee0-0624e1e8d6fc)
+
+Для проверки добавляем еще одну запись в таблицу, подключаемся к реплике и проверяем наличие записи в таблице:
+
+![patroni-7](https://github.com/gi949/homework_lesson6/assets/94520051/75908cf6-2cda-4f81-80a4-37976da802a1)
 
 
-
-
-
-
-ansible-playbook main.yaml
 
