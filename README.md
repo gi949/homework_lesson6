@@ -68,5 +68,8 @@ ansible-playbook main.yaml
 
 ![patroni-7](https://github.com/gi949/homework_lesson6/assets/94520051/75908cf6-2cda-4f81-80a4-37976da802a1)
 
+Запускаем ВМ db2, наблюдаем, что БД снова в кластере:
+
+![patroni-9](https://github.com/gi949/homework_lesson6/assets/94520051/05332524-bbf2-405f-8bb8-cea9f693255f)
 
 
