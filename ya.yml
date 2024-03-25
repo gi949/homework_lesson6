@@ -1,0 +1,8 @@
+[db]
+db1 ansible_host=51.250.92.176  name=etcd1 ip=192.168.10.14 pgdb=pgdb1
+db2 ansible_host=62.84.126.105 name=etcd2 ip=192.168.10.10 pgdb=pgdb2
+db3 ansible_host=158.160.119.246  name=etcd3 ip=192.168.10.13 pgdb=pgdb3
+
+[hp]
+hp1 ansible_host=158.160.111.140 ip=192.168.10.33
+

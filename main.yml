@@ -1,0 +1,13 @@
+---
+
+- name: db install
+  hosts: db
+  become: true
+  roles:
+    - db_pg
+
+- name: haproxy install
+  hosts: hp
+  become: true
+  roles:
+    - haproxy

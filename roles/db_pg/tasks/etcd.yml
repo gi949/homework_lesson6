@@ -1,0 +1,25 @@
+---
+
+- name: desable selinux
+  command: setenforce 0
+  ignore_errors: yes
+
+- name: install etcd
+  ansible.builtin.yum:
+    name: etcd
+    state: present
+
+- name: export for etcd
+  command: export ETCDCTL_API=3
+  ignore_errors: yes
+
+- name: Configure etcd cluster
+  ansible.builtin.template:
+    src: etcd.conf.j2
+    dest: "/etc/etcd/etcd.conf"
+
+- name: Start etcd
+  ansible.builtin.service:
+    name: etcd
+    state: restarted
+    enabled: true

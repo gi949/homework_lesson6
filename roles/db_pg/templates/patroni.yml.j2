@@ -1,0 +1,63 @@
+name: {{ pgdb }}
+scope: pgdb
+
+watchdog:
+  mode: off
+
+etcd:
+  hosts: {{ ip_db1 }}:2379,{{ ip_db2 }}:2379,{{ ip_db3 }}:2379
+
+restapi:
+  listen: 0.0.0.0:8008
+  connect_address: "{{ ip }}:8008"
+
+bootstrap:
+  dcs:
+    ttl: 30
+    loop_wait: 10
+    maximum_lag_on_failover: 1048576
+    postgresql:
+      use_pg_rewind: true
+      use_slots: true
+      parameters:
+        archive_mode: "on"
+        wal_level: hot_standby
+        max_wal_senders: 10
+        wal_keep_segments: 8
+        archive_timeout: 1800s
+        max_replication_slots: 5
+        hot_standby: "on"
+        wal_log_hints: "on"
+
+initdb:
+  - encoding: UTF8
+  - data-checksums
+
+pg_hba:
+  - local all postgres peer
+  - host replication replicator 192.168.10.0/24 md5
+  - host replication replicator 127.0.0.1/32 trust
+  - host all all 0.0.0.0/0 md5
+
+postgresql:
+  pgpass: /var/lib/pgsql/14/.pgpass
+  listen: 0.0.0.0:5432
+  connect_address: "{{ ip }}:5432"
+  data_dir: /var/lib/pgsql/14/data/
+  bin_dir: /usr/pgsql-14/bin/
+  pg_rewind:
+    username: postgres
+    password: postgres
+  pg_hba:
+    - local all postgres peer
+    - host replication replicator 192.168.10.0/24 md5
+    - host replication replicator 127.0.0.1/32 trust
+    - host all all 0.0.0.0/0 md5
+  replication:
+    username: replicator
+    password: replicator
+  superuser:
+    username: postgres
+    password: postgres
+
+    

@@ -1,0 +1,89 @@
+---
+
+- name: Install the repository RPM
+  shell: yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-`rpm -E %{rhel}`-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+  ignore_errors: yes
+
+- name: Configuring cluster (step 2)
+  shell: yum makecache -y
+  ignore_errors: yes
+
+- name: Install postgresql14-server 
+  ansible.builtin.yum:
+    name:
+      - postgresql
+      - postgresql14-server
+      - postgresql14-contrib
+    state: latest
+
+- name: Install python3 
+  ansible.builtin.yum:
+    name:
+      - python3 
+      - python3-devel 
+      - gcc
+      - python3-psycopg2
+    state: latest
+
+- name: Install testresources, setuptools --upgrade
+  ansible.builtin.pip:
+    name:
+      - testresources
+      - setuptools
+    extra_args: --upgrade
+    executable: pip3
+
+- name: Install psycopg2 python3-etcd
+  ansible.builtin.yum:
+    name:
+#      - python3-psycopg2
+#      - python3-etcd
+      - watchdog
+    state: latest
+  ignore_errors: yes
+
+- name: Install patroni patroni-etcd
+  shell: pip3 install patroni
+  ignore_errors: yes
+
+- name: Install patroni patroni-etcd
+  shell: pip3 install python-etcd
+  ignore_errors: yes
+
+- name: Create a directory /etc/patroni, if it does not exist
+  ansible.builtin.file:
+    path: /etc/patroni
+    state: directory
+    owner: postgres
+    group: postgres
+    mode: 0750
+
+- name: Generate conf file "/etc/patroni/patroni.yml"
+  template:
+    src: patroni.yml.j2
+    dest: /etc/patroni/patroni.yml
+    owner: postgres
+    group: postgres
+    mode: 0640
+
+- name: Copy systemd service file "/etc/systemd/system/patroni.service"
+  copy:
+    src: patroni.service
+    dest: /etc/systemd/system/patroni.service
+    owner: postgres
+    group: postgres
+    mode: 0644
+
+- name: Start patroni
+  ansible.builtin.service:
+    name: patroni
+    state: restarted
+    enabled: true
+
+
+
+
+
+
+
+

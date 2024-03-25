@@ -1,0 +1,7 @@
+---
+
+- name: Include etcd setup
+  include_tasks: etcd.yml
+
+- name: Include patroni setup
+  include_tasks: patroni.yml
