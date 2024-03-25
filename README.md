@@ -36,7 +36,7 @@ ping ansible all -m ping
 
 В файле all групповых переменных в group_vars/ ввести internal_ip_address_vm_... для ВМ db1, db2 и db3.
 
-Роль db_pg выполняет установку и развертывание кластер etcd, кластер patroni и базы данных postgresql.
+Роль db_pg выполняет установку и развертывание кластера etcd, кластера patroni и базы данных postgresql.
 
 Роль hp_ins выполняет настройку балансировщика haproxy
 
