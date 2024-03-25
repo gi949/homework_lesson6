@@ -46,5 +46,19 @@ ansible-playbook --syntax-check main.yaml
 
 Запускаем playbook на выполнение
 
+Проверяем состояния кластера patroni, подключаемся к БД через ВМ hp1 и создаем тестовую базу данных:
+
+![patroni-1](https://github.com/gi949/homework_lesson6/assets/94520051/939f5223-550b-4ad5-b1df-07ea43cfbb76)
+
+Подключаемся к тестовой БД, создаем таблицу и добавляем в нее строку для проверки:
+
+![patroni-2](https://github.com/gi949/homework_lesson6/assets/94520051/5ba90781-89c9-43f3-85e7-75cb6e1f4f15)
+
+
+
+
+
+
+
 ansible-playbook main.yaml
 
